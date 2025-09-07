@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
 
@@ -18,8 +19,18 @@ void outputRestaurant(const Restaurant &);
 
 int main()
 {
+    const int SIZE = 100;
+    int index = 0;
     char repeat;
-    
+
+    Restaurant restaurantInfo[SIZE];
+        
+    string rName;
+    string rAddress;
+    string rCuisine;
+    double rRating;
+    double rCostPerPerson;
+
     for (repeat != 'n'; repeat != 'N';)
     {
 
@@ -27,17 +38,32 @@ int main()
         cin >> repeat;
         cin.ignore();
 
-        if (repeat == 'y' || repeat == 'Y')
-        {
-            Restaurant nRestaurant = populateRestaurant();
-        }
-
-        else if (repeat == 'n' || repeat == 'N') break;
+        if (repeat == 'n' || repeat == 'N') break;
         else if (repeat != 'n' && repeat != 'N' && repeat != 'y' && repeat != 'Y')
             cout << "Invalid character. Please try again.\n";
+        else if (repeat == 'y' || repeat == 'Y')
+            {
+                Restaurant nRestaurant = populateRestaurant();
+        
+                Restaurant temp;
+                    temp.name = nRestaurant.name;
+                    temp.address = nRestaurant.address;
+                    temp.cuisineType = nRestaurant.cuisineType;
+                    temp.avgRating = nRestaurant.avgRating;
+                    temp.avgCostPerPerson = nRestaurant.avgCostPerPerson;
 
+                restaurantInfo[index++] = temp;
+            }
+        }
+
+    cout << "Outputting Restaurant Info \n\n";
+    for (int i = 0; i < index; i++)
+    {
+        cout << "Restaurant #" << i + 1 << endl;
+        outputRestaurant(restaurantInfo[i]);
     }
 
+    return 0;
 }
 
 Restaurant populateRestaurant()
@@ -64,7 +90,15 @@ Restaurant populateRestaurant()
     return temp;
 }
 
-void outputRestaurant(const Restaurant &c)
+void outputRestaurant(const Restaurant &r)
 {
+    cout << "Restaurant Name: " << r.name << endl;
+    cout << "Restaurant Address: " << r.address << endl;
+    cout << "Restaurant Cuisine: " << r.cuisineType << endl;
 
+    cout.setf(ios::fixed|ios::showpoint);
+    cout << setprecision(2);
+
+    cout << "Average Rating: " << r.avgRating << endl;
+    cout << "Average Cost Per Person: " << r.avgCostPerPerson << " dollars" << endl << endl;
 }
