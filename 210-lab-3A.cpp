@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -17,10 +18,11 @@ void outputRestaurant(const Restaurant &);
 
 int main()
 {
-    while(true)
+    char repeat;
+    
+    for (repeat != 'n'; repeat != 'N';)
     {
-        char repeat;
-        
+
         cout << "Would you like to input information on a restaurant? (Y/N)\n";
         cin >> repeat;
         cin.ignore();
@@ -43,16 +45,13 @@ Restaurant populateRestaurant()
     Restaurant temp;
 
     cout << "What is the name of the restaurant? \n";
-    cin >> temp.name;
-    cin.ignore();
+    getline(cin, temp.name);
     
     cout << "What is the address of the restaurant? \n";
-    cin >> temp.address;
-    cin.ignore();
+    getline(cin, temp.address);
     
     cout << "What type of cuisine is served at the restaurant? \n";
-    cin >> temp.cuisineType;
-    cin.ignore();
+    getline(cin, temp.cuisineType);
 
     cout << "What is the average rating of this restaurant? \n";
     cin >> temp.avgRating;
@@ -63,4 +62,9 @@ Restaurant populateRestaurant()
     cin.ignore();
 
     return temp;
+}
+
+void outputRestaurant(const Restaurant &c)
+{
+
 }
